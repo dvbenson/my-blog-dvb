@@ -17,16 +17,19 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "@heroicons/react": "1.0.6",
+    "@vercel/postgres": "0.3.0",
     "clsx": "1.2.1",
     "date-fns": "2.29.3",
     "dinero.js": "2.0.0-alpha.8",
+    "drizzle-orm": "0.26.3",
     "ms": "3.0.0-canary.1",
     "next": "latest",
+    "next-auth": "4.22.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "server-only": "0.0.1",
     "styled-components": "6.0.0-beta.2",
+    "tailwind-merge": "1.12.0",
     "use-count-up": "3.0.1"
   },
   "devDependencies": {
@@ -38,6 +41,7 @@
     "@types/react-dom": "18.0.9",
     "@vercel/git-hooks": "1.0.0",
     "autoprefixer": "10.4.13",
+    "drizzle-kit": "0.18.1",
     "eslint": "8.30.0",
     "eslint-config-next": "latest",
     "lint-staged": "13.1.0",
