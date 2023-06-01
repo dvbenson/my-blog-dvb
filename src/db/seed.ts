@@ -6,6 +6,7 @@ const newUsers: NewUser[] = [
   {
     name: "Daniel Benson",
     email: "danielvb@danielvb.dev",
+    password: "password123",
     image: "https://avatars.githubusercontent.com/u/112098121?v=4",
   },
 ];
@@ -17,6 +18,7 @@ export async function seed() {
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
         image VARCHAR(255),
         "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       );
