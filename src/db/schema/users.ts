@@ -4,30 +4,30 @@ import {
   text,
   timestamp,
   uniqueIndex,
-  PgArray,
 } from "drizzle-orm/pg-core";
 import { InferModel } from "drizzle-orm";
 // import { sql } from "@vercel/postgres";
 // import { drizzle } from "drizzle-orm/vercel-postgres";
 
-export const PostsTable = pgTable(
-  "posts",
+export const UsersTable = pgTable(
+  "users",
   {
     id: serial("id").primaryKey(),
-    title: text("title").notNull(),
-    topics: text("topics").notNull(),
+    name: text("name").notNull(),
+    email: text("email").notNull(),
+    // password: text("password").notNull(),
     image: text("image").notNull(),
     createdAt: timestamp("createdAt").defaultNow().notNull(),
   },
-  (posts) => {
+  (users) => {
     return {
-      uniqueIdx: uniqueIndex("unique_idx").on(posts.title),
+      uniqueIdx: uniqueIndex("unique_idx").on(users.email),
     };
   }
 );
 
-export type Post = InferModel<typeof PostsTable>;
-export type NewPost = InferModel<typeof PostsTable, "insert">;
+export type User = InferModel<typeof UsersTable>;
+export type NewUser = InferModel<typeof UsersTable, "insert">;
 
 // // Connect to Vercel Postgres
 // export const db = drizzle(sql);

@@ -1,13 +1,16 @@
-import { db, UsersTable } from "#/src/db/drizzle";
+import { db } from "#/src/db/drizzle";
 import { timeAgo } from "#/src/db/utils";
 import Image from "next/image";
 import { seed } from "#/src/db/seed";
+import * as PostsSchema from "#/src/db/schema/posts";
+import * as CommentsSchema from "#/src/db/schema/comments";
+import * as UserSchema from "#/src/db/schema/users";
 
 export default async function Page() {
   let users;
   let startTime = Date.now();
   try {
-    users = await db.select().from(UsersTable);
+    users = await db.select().from(UserSchema.UsersTable);
   } catch (e: any) {
     if (e.message === `relation "users" does not exist`) {
       console.log(
@@ -16,7 +19,7 @@ export default async function Page() {
       // Table is not created yet
       await seed();
       startTime = Date.now();
-      users = await db.select().from(UsersTable);
+      users = await db.select().from(UserSchema.UsersTable);
     } else {
       throw e;
     }
