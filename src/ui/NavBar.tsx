@@ -3,22 +3,21 @@ import Link from "next/link";
 
 export default function NavBar() {
   return (
-    <nav className="w-100vh fixed flex h-24 shadow-lg">
-      <ul className="flex justify-between">
-        <div>
+    <nav className="fixed h-24 w-full shadow-lg">
+      <div className="flex h-full w-full items-center justify-center px-4">
+        <ul className="flex list-none flex-row items-center justify-center gap-4">
           <li>
             <Link href="/">Home</Link>
           </li>
           <li>
             <Link href="/admin">Admin</Link>
           </li>
-        </div>
-        <div>
+
           <li>
             <Link href="/signin">Sign In</Link>
           </li>
-        </div>
-      </ul>
+        </ul>
+      </div>
     </nav>
   );
 }

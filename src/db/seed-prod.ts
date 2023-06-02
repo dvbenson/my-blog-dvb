@@ -1,14 +1,15 @@
 import { sql } from "@vercel/postgres";
-import { db } from "./drizzle";
+import { db } from "./db";
 import * as PostsSchema from "./schema/posts";
 import * as CommentsSchema from "./schema/comments";
 import * as UserSchema from "./schema/users";
+import { dbMigrate } from "./migrator";
 
 const newUsers: UserSchema.NewUser[] = [
   {
     name: "Daniel Benson",
     email: "danielvb@danielvb.dev",
-    // password: "password123",
+    password: "password123",
     image: "https://avatars.githubusercontent.com/u/112098121?v=4",
   },
 ];
@@ -29,40 +30,6 @@ const newComments: CommentsSchema.NewComment[] = [
 ];
 
 export async function seed() {
-  // Create table with raw SQL
-  const createUserTable = await sql.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        
-        image VARCHAR(255),
-        "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-  `);
-  console.log(`Created "users" table`);
-
-  const createPostsTable = await sql.query(`
-      CREATE TABLE IF NOT EXISTS posts (
-        id SERIAL PRIMARY KEY,
-        title VARCHAR(255) NOT NULL,
-        topics VARCHAR(255) NOT NULL,
-        image VARCHAR(255) NOT NULL,
-        "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-  `);
-  console.log(`Created "posts" table`);
-
-  const createCommentsTable = await sql.query(`
-      CREATE TABLE IF NOT EXISTS comments (
-        id SERIAL PRIMARY KEY,
-        username VARCHAR(255) NOT NULL,
-        body VARCHAR(255) NOT NULL,
-        "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-  `);
-  console.log(`Created "comments" table`);
-
   const insertedUsers: UserSchema.User[] = await db
     .insert(UserSchema.UsersTable)
     .values(newUsers)
@@ -81,10 +48,9 @@ export async function seed() {
     .returning();
   console.log(`Seeded ${insertedComments.length} comments`);
 
+  await dbMigrate();
+
   return {
-    createUserTable,
-    createPostsTable,
-    createCommentsTable,
     insertedUsers,
     insertedPosts,
     insertedComments,

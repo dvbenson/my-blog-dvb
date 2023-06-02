@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import type { ReactNode } from "react";
 import { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
+// import { SessionProvider } from "next-auth/react";
 
 interface RootProps {
   children: ReactNode;
@@ -16,13 +16,13 @@ export const metadata: Metadata = {
   description: "",
 };
 
+{
+  /* <SessionProvider session={session}>{children}</SessionProvider> */
+}
 export default function RootLayout({ children, session }: RootProps) {
   return (
     <html lang="en">
-      <body>
-        {/* <SessionProvider session={session}>{children}</SessionProvider> */}
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

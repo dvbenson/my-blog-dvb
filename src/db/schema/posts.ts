@@ -7,8 +7,6 @@ import {
   PgArray,
 } from "drizzle-orm/pg-core";
 import { InferModel } from "drizzle-orm";
-// import { sql } from "@vercel/postgres";
-// import { drizzle } from "drizzle-orm/vercel-postgres";
 
 export const PostsTable = pgTable(
   "posts",
@@ -28,6 +26,3 @@ export const PostsTable = pgTable(
 
 export type Post = InferModel<typeof PostsTable>;
 export type NewPost = InferModel<typeof PostsTable, "insert">;
-
-// // Connect to Vercel Postgres
-// export const db = drizzle(sql);
