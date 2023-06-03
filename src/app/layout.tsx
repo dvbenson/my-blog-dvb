@@ -5,7 +5,6 @@ import { Metadata } from "next";
 
 interface RootProps {
   children: ReactNode;
-  session: any;
 }
 
 export const metadata: Metadata = {
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
 {
   /* <SessionProvider session={session}>{children}</SessionProvider> */
 }
-export default function RootLayout({ children, session }: RootProps) {
+export default function RootLayout({ children }: RootProps) {
   return (
     <html lang="en">
       <body>{children}</body>
