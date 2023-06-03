@@ -1,11 +1,15 @@
 import { db } from "./db";
-import { migrate as migrateVercel } from "drizzle-orm/vercel-postgres/migrator";
-import { migrate as migrateNode } from "drizzle-orm/node-postgres/migrator";
+import { migrate } from "drizzle-orm/node-postgres/migrator";
 
 export async function dbMigrate() {
-  if (process.env.VERCEL_ENV) {
-    await migrateVercel(db, { migrationsFolder: "./drizzle" });
-  } else {
-    await migrateNode(db, { migrationsFolder: "./drizzle" });
+  try {
+    await migrate(db, { migrationsFolder: "./drizzle" });
+    console.log("Migrations complete");
+    process.exit(0);
+  } catch (e) {
+    console.error("Migration error: ", e);
+    process.exit(0);
   }
 }
+
+dbMigrate();

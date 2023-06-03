@@ -5,9 +5,14 @@ import {
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
-import { InferModel } from "drizzle-orm";
+import { InferModel, relations } from "drizzle-orm";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { z } from "zod";
+import * as posts from "./posts";
 
-export const UsersTable = pgTable(
+//TODO: Figure out enums later
+
+export const usersTable = pgTable(
   "users",
   {
     id: serial("id").primaryKey(),
@@ -19,10 +24,23 @@ export const UsersTable = pgTable(
   },
   (users) => {
     return {
-      uniqueIdx: uniqueIndex("unique_idx").on(users.email),
+      emailIdx: uniqueIndex("email_idx").on(users.email),
     };
   }
 );
 
-export type User = InferModel<typeof UsersTable>;
-export type NewUser = InferModel<typeof UsersTable, "insert">;
+export const usersRelations = relations(usersTable, ({ many }) => ({
+  posts: many(posts.postsTable),
+}));
+
+export const insertUserSchema = createInsertSchema(usersTable, {
+  name: z.string().nonempty().min(3).max(200),
+  email: z.string().email().min(5),
+  password: z.string().nonempty().min(8),
+  image: z.string().optional(),
+});
+
+export const selectUserSchema = createSelectSchema(usersTable);
+
+export type User = InferModel<typeof usersTable>;
+export type NewUser = InferModel<typeof usersTable, "insert">;

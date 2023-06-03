@@ -1,58 +1,65 @@
-import { sql } from "@vercel/postgres";
 import { db } from "./db";
 import * as PostsSchema from "./schema/posts";
 import * as CommentsSchema from "./schema/comments";
 import * as UserSchema from "./schema/users";
-import { dbMigrate } from "./migrator";
+import { z } from "zod";
 
 const newUsers: UserSchema.NewUser[] = [
   {
-    name: "Daniel Benson",
-    email: "danielvb@danielvb.dev",
-    password: "password123",
-    image: "https://avatars.githubusercontent.com/u/112098121?v=4",
+    name: "Buzz Lightyear",
+    email: "buzz.ly@spacecommand.star",
+    // role: "admin",
+    password: "zergmustdie123",
+    image:
+      "https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-a07syh_9331bd0a.jpeg?region=0%2C0%2C450%2C450",
   },
 ];
 
+UserSchema.insertUserSchema.parse(newUsers);
+
 const newPosts: PostsSchema.NewPost[] = [
   {
-    title: "My first post",
-    topics: "Things",
+    title: "Why the threat of Emperor Zerg is real",
+    topics: ["Space-Rangers"],
     image: "https://cdn-icons-png.flaticon.com/128/4570/4570691.png",
   },
 ];
 
+PostsSchema.insertPostSchema.parse(newPosts);
+
 const newComments: CommentsSchema.NewComment[] = [
   {
-    username: "Daniel Benson",
-    body: "Hello World",
+    username: "Rex",
+    body: "Hello World... RAWR!",
   },
 ];
 
-export async function seed() {
+CommentsSchema.insertCommentSchema.parse(newComments);
+
+export async function seedTest() {
   const insertedUsers: UserSchema.User[] = await db
-    .insert(UserSchema.UsersTable)
+    .insert(UserSchema.usersTable)
     .values(newUsers)
     .returning();
   console.log(`Seeded ${insertedUsers.length} users`);
 
   const insertedPosts: PostsSchema.Post[] = await db
-    .insert(PostsSchema.PostsTable)
+    .insert(PostsSchema.postsTable)
     .values(newPosts)
     .returning();
   console.log(`Seeded ${insertedPosts.length} posts`);
 
   const insertedComments: CommentsSchema.Comment[] = await db
-    .insert(CommentsSchema.CommentsTable)
+    .insert(CommentsSchema.commentsTable)
     .values(newComments)
     .returning();
   console.log(`Seeded ${insertedComments.length} comments`);
-
-  await dbMigrate();
-
+  console.log("Test Data Seed Complete");
   return {
     insertedUsers,
     insertedPosts,
     insertedComments,
   };
 }
+
+seedTest();
