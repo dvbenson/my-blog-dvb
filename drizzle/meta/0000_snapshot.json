@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "13aea00c-4796-4569-b4ca-dc9c3b7e432f",
+  "id": "55641a59-dcb6-497a-9de6-441a4b14815a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "comments": {
@@ -35,8 +35,8 @@
         }
       },
       "indexes": {
-        "unique_idx": {
-          "name": "unique_idx",
+        "username_idx": {
+          "name": "username_idx",
           "columns": ["username"],
           "isUnique": true
         }
@@ -62,7 +62,7 @@
         },
         "topics": {
           "name": "topics",
-          "type": "text",
+          "type": "text[]",
           "primaryKey": false,
           "notNull": true
         },
@@ -81,8 +81,8 @@
         }
       },
       "indexes": {
-        "unique_idx": {
-          "name": "unique_idx",
+        "title_idx": {
+          "name": "title_idx",
           "columns": ["title"],
           "isUnique": true
         }
@@ -133,8 +133,8 @@
         }
       },
       "indexes": {
-        "unique_idx": {
-          "name": "unique_idx",
+        "email_idx": {
+          "name": "email_idx",
           "columns": ["email"],
           "isUnique": true
         }

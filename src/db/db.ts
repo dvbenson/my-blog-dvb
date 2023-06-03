@@ -1,9 +1,11 @@
-import { sql as sqlVercel } from "@vercel/postgres";
-import { drizzle as drizzleVercel } from "drizzle-orm/vercel-postgres";
-import { drizzle as drizzleNode } from "drizzle-orm/node-postgres";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 
-import { Client } from "pg";
+//TODO: need to come back to this and establish .env files for prod/dev
 
-export const db = process.env.VERCEL_ENV
-  ? drizzleVercel(sqlVercel)
-  : drizzleNode(new Client({ connectionString: process.env.DB_NAME }));
+const pool = new Pool({
+  connectionString:
+    "postgres://badsauce:postgres@127.0.0.1:5432/my_special_blog_dvb_dev",
+});
+
+export const db = drizzle(pool);
