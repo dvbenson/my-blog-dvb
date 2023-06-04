@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import type { ReactNode } from "react";
 import { Metadata } from "next";
-// import { SessionProvider } from "next-auth/react";
+import Provider from "../ui/components/Provider";
 
 interface RootProps {
   children: ReactNode;
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 {
-  /* <SessionProvider session={session}>{children}</SessionProvider> */
+  /* <Provider>{children}</Provider> */
 }
 export default function RootLayout({ children }: RootProps) {
   return (
