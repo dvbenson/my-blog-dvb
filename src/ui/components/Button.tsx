@@ -1,6 +1,7 @@
 interface ButtonProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  label?: string | React.ReactNode;
+  content?: string | React.ReactNode;
+  contentStyles?: string;
   variant?: "primary" | "secondary" | "tertiary";
   className?: string;
   disabled?: boolean;
@@ -9,7 +10,8 @@ interface ButtonProps {
 
 export default function Button({
   onClick,
-  label,
+  content,
+  contentStyles,
   variant,
   className,
   disabled,
@@ -30,12 +32,14 @@ export default function Button({
       : "";
 
   return (
-    <button
-      onClick={onClick}
-      className={`${baseClasses} ${variantClasses} ${className}`}
-      disabled={disabled}
-    >
-      {label}
-    </button>
+    <>
+      <button
+        onClick={onClick}
+        className={`${baseClasses} ${variantClasses} ${className}`}
+        disabled={disabled}
+      >
+        <span className={contentStyles}>{content}</span>
+      </button>
+    </>
   );
 }
