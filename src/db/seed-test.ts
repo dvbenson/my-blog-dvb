@@ -8,7 +8,7 @@ const newUsers: UserSchema.NewUser[] = [
   {
     name: "Buzz Lightyear",
     email: "buzz.ly@spacecommand.star",
-    // role: "admin",
+    role: "admin",
     password: "zergmustdie123",
     image:
       "https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-a07syh_9331bd0a.jpeg?region=0%2C0%2C450%2C450",

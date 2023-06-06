@@ -12,6 +12,7 @@ import * as UserSchema from "./schema/users";
 const newUser: UserSchema.NewUser = {
   name: "Daniel VB",
   email: "danielvb@danielvb.dev",
+  role: "admin",
   password: "password123",
   image: "https://avatars.githubusercontent.com/u/112098121?v=4",
 };
@@ -19,8 +20,10 @@ const validatedUser = UserSchema.insertUserSchema.parse(newUser);
 
 const newPost: PostsSchema.NewPost = {
   title: "My first post",
-  topics: ["New things I learned"],
+  subject: "Learning",
+  tags: ["New things I learned"],
   image: "https://cdn-icons-png.flaticon.com/128/4149/4149646.png",
+  author: "Daniel VB",
 };
 
 const validatedPost = PostsSchema.insertPostSchema.parse(newPost);

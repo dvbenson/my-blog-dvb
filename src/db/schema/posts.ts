@@ -1,4 +1,5 @@
 import {
+  integer,
   pgTable,
   serial,
   text,
@@ -18,8 +19,11 @@ export const postsTable = pgTable(
   {
     id: serial("id").primaryKey(),
     title: text("title").notNull(),
-    topics: text("topics").array().notNull(), //keep an eye on this, might bug out, doesn't accept default values
+    subject: text("subject").notNull(),
+    tags: text("tags").array().notNull(), //keep an eye on this, might bug out, doesn't accept default values
     image: text("image").notNull(),
+    author: text("author").notNull(),
+    votes: integer("votes").default(0).notNull(),
     createdAt: timestamp("createdAt").defaultNow().notNull(),
   },
   (posts) => {
@@ -38,8 +42,11 @@ export const postsRelations = relations(postsTable, ({ one }) => ({
 
 export const insertPostSchema = createInsertSchema(postsTable, {
   title: z.string().nonempty().min(3).max(100),
-  topics: z.string().array(),
+  subject: z.string().nonempty().min(3).max(100),
+  tags: z.string().array(),
   image: z.string().optional(),
+  author: z.string().nonempty().min(3).max(100),
+  votes: z.number().int(),
 });
 
 export const selectPostSchema = createSelectSchema(postsTable);

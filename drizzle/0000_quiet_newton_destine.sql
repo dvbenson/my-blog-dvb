@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS "posts" (
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
+	"role" text NOT NULL,
 	"email" text NOT NULL,
 	"password" text NOT NULL,
 	"image" text NOT NULL,

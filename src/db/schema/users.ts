@@ -11,12 +11,14 @@ import { z } from "zod";
 import * as posts from "./posts";
 
 //TODO: Figure out enums later
+//TODO: Add post column for how many posts made?
 
 export const usersTable = pgTable(
   "users",
   {
     id: serial("id").primaryKey(),
     name: text("name").notNull(),
+    role: text("role").notNull(),
     email: text("email").notNull(),
     password: text("password").notNull(),
     image: text("image").notNull(),
