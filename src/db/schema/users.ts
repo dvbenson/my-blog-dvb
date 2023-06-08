@@ -9,9 +9,7 @@ import { InferModel, relations } from "drizzle-orm";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 import * as posts from "./posts";
-
-//TODO: Figure out enums later
-//TODO: Add post column for how many posts made?
+import * as comments from "./comments";
 
 export const usersTable = pgTable(
   "users",
@@ -33,6 +31,7 @@ export const usersTable = pgTable(
 
 export const usersRelations = relations(usersTable, ({ many }) => ({
   posts: many(posts.postsTable),
+  comments: many(comments.commentsTable),
 }));
 
 export const insertUserSchema = createInsertSchema(usersTable, {

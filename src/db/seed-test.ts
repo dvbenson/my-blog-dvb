@@ -20,8 +20,10 @@ UserSchema.insertUserSchema.parse(newUsers);
 const newPosts: PostsSchema.NewPost[] = [
   {
     title: "Why the threat of Emperor Zerg is real",
-    topics: ["Space-Rangers"],
+    subject: "Space-Rangers",
+    tags: ["Zerg", "Space", "Rangers"],
     image: "https://cdn-icons-png.flaticon.com/128/4570/4570691.png",
+    author_id: 1,
   },
 ];
 
@@ -29,7 +31,8 @@ PostsSchema.insertPostSchema.parse(newPosts);
 
 const newComments: CommentsSchema.NewComment[] = [
   {
-    username: "Rex",
+    post_id: 1,
+    author_id: 1,
     body: "Hello World... RAWR!",
   },
 ];

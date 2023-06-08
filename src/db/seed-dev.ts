@@ -16,23 +16,24 @@ const newUser: UserSchema.NewUser = {
   password: "password123",
   image: "https://avatars.githubusercontent.com/u/112098121?v=4",
 };
-const validatedUser = UserSchema.insertUserSchema.parse(newUser);
+//const validatedUser = UserSchema.insertUserSchema.parse(newUser);
 
 const newPost: PostsSchema.NewPost = {
   title: "My first post",
   subject: "Learning",
   tags: ["New things I learned"],
   image: "https://cdn-icons-png.flaticon.com/128/4149/4149646.png",
-  author: "Daniel VB",
+  author_id: 1,
 };
 
 const validatedPost = PostsSchema.insertPostSchema.parse(newPost);
 
 const newComment: CommentsSchema.NewComment = {
-  username: "Daniel Benson",
+  post_id: 1,
+  author_id: 1,
   body: "Hello World",
 };
-const validatedComment = CommentsSchema.insertCommentSchema.parse(newComment);
+////const validatedComment = CommentsSchema.insertCommentSchema.parse(newComment);
 
 export async function seed() {
   const insertedUser: UserSchema.User[] = await db

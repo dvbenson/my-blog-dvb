@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 //GET USER BY ID
-
+//**WORKING**
 export async function GET(request: Request) {
   try {
     const id = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));
@@ -31,7 +31,7 @@ export async function GET(request: Request) {
 }
 
 //PATCH USER BY ID
-
+//**WORKING**
 export async function PATCH(request: Request) {
   try {
     //TODO: make util that checks if user exists
@@ -62,7 +62,7 @@ export async function PATCH(request: Request) {
 }
 
 //DELETE USER BY ID
-
+//**WORKING**
 export async function DELETE(request: Request) {
   try {
     const id = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));
@@ -74,7 +74,7 @@ export async function DELETE(request: Request) {
     const deletedUser = await db
       .delete(usersTable)
       .where(eq(usersTable.id, id))
-      .returning({ name: usersTable.name });
+      .returning();
 
     if (deletedUser.length === 0) {
       return NextResponse.json({ error: "User not found" });

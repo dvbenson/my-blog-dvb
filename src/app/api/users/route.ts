@@ -3,6 +3,7 @@ import { db } from "#/src/db/db";
 import { NextResponse } from "next/server";
 
 //GET ALL USERS
+//**WORKING**
 export async function GET(response: NextResponse) {
   try {
     const users: User[] = await db.select().from(usersTable);
@@ -15,6 +16,7 @@ export async function GET(response: NextResponse) {
 }
 
 //POST USER
+//**WORKING**
 //TODO: make util that checks all necessary props are present
 
 export async function POST(request: Request) {
@@ -30,7 +32,7 @@ export async function POST(request: Request) {
         password: password,
         image: image,
       })
-      .returning({ name: usersTable.name });
+      .returning();
 
     return NextResponse.json(newUser);
   } catch (error) {
