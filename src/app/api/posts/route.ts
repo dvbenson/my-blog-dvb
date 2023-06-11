@@ -1,45 +1,32 @@
-import { Post, postsTable } from "#/src/db/schema/posts";
+import { sql, eq } from "drizzle-orm";
+import { Post, PostWithCommentCount, postsTable } from "#/src/db/schema/posts";
 import { db } from "#/src/db/db";
 import { NextResponse } from "next/server";
+import * as comments from "#/src/db/schema/comments";
 
-//GET ALL POSTS
-//**WORKING**
-//TODO: Error Handling?
-//TODO: search by tags, search by topics
-//RAW SQL for guide
-// if (topic) {
-//   queryParams.push(topic);
-//   selectQuery += `
-//     WHERE topic LIKE $1
-//     GROUP BY (articles.article_id)
-//     ORDER BY ${sort_by} ${order}
-//     `;
-//   if (limit && p) {
-//     queryParams.push(limit, p);
-//     selectQuery += `
-//   LIMIT ${limit}
-//   OFFSET ${p}
-//   `;
-//   }
-// } else {
-//   selectQuery += `
-//     GROUP BY (articles.article_id)
-//     ORDER BY ${sort_by} ${order}
-//     `;
-// }
-//TODO: COUNT comments.post_id AS comment_count
-//RAW SQL for guide
-// let selectQuery = `
-//     SELECT articles.*,
-//     COUNT (comments.article_id) as comment_count
-//     FROM articles
-//     LEFT JOIN comments
-//     ON articles.article_id = comments.article_id
-//     `;
-
+//GET ALL POSTS **WORKING**
 export async function GET(request: Request) {
   try {
-    const posts: Post[] = await db.select().from(postsTable);
+    const posts: PostWithCommentCount[] = await db
+      .select({
+        id: postsTable.id,
+        title: postsTable.title,
+        subject: postsTable.subject,
+        tags: postsTable.tags,
+        image: postsTable.image,
+        author_id: postsTable.author_id,
+        votes: postsTable.votes,
+        createdAt: postsTable.createdAt,
+        comment_count: sql<number>`COUNT(${comments.commentsTable.post_id})`.as(
+          "comment_count"
+        ),
+      })
+      .from(postsTable)
+      .leftJoin(
+        comments.commentsTable,
+        eq(postsTable.id, comments.commentsTable.post_id)
+      )
+      .groupBy(postsTable.id);
 
     return NextResponse.json(posts);
   } catch (error) {
@@ -48,14 +35,11 @@ export async function GET(request: Request) {
   }
 }
 
-//POST NEW POST
-//**WORKING**
-//TODO: make util that checks all necessary props are present
-//Error Handling
-
+//POST NEW POST **WORKING**
 export async function POST(request: Request) {
   try {
-    const { title, subject, tags, image, author }: Post = await request.json();
+    const { title, subject, tags, image, author_id }: Post =
+      await request.json();
 
     const newPost = await db
       .insert(postsTable)
@@ -64,7 +48,7 @@ export async function POST(request: Request) {
         subject: subject,
         tags: tags,
         image: image,
-        author: author,
+        author_id: author_id,
       })
       .returning();
 

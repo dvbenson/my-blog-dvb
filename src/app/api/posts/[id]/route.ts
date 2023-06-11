@@ -1,12 +1,10 @@
-import { Post, postsTable } from "#/src/db/schema/posts";
+import { Post, PostWithCommentCount, postsTable } from "#/src/db/schema/posts";
 import { db } from "#/src/db/db";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import * as comments from "#/src/db/schema/comments";
 
-//GET POST BY ID
-//**WORKING**
-//TODO: Error Handling?
-//TODO: COUNT comments.post_id AS comment_count
+//GET POST BY ID **WORKING**
 export async function GET(request: Request) {
   try {
     const id = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));
@@ -15,10 +13,27 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "ID parameter is missing" });
     }
 
-    const response: Post[] = await db
-      .select()
+    const response: PostWithCommentCount[] = await db
+      .select({
+        id: postsTable.id,
+        title: postsTable.title,
+        subject: postsTable.subject,
+        tags: postsTable.tags,
+        image: postsTable.image,
+        author_id: postsTable.author_id,
+        votes: postsTable.votes,
+        createdAt: postsTable.createdAt,
+        comment_count: sql<number>`COUNT(${comments.commentsTable.post_id})`.as(
+          "comment_count"
+        ),
+      })
       .from(postsTable)
-      .where(eq(postsTable.id, id));
+      .leftJoin(
+        comments.commentsTable,
+        eq(postsTable.id, comments.commentsTable.post_id)
+      )
+      .where(eq(postsTable.id, id))
+      .groupBy(postsTable.id);
 
     if (response.length === 0)
       return NextResponse.json({ error: "Post not found" });
@@ -32,8 +47,7 @@ export async function GET(request: Request) {
   }
 }
 
-//PATCH POST BY ID
-//**WORKING**
+//PATCH POST BY ID **WORKING**
 export async function PATCH(request: Request) {
   try {
     //TODO: make util that checks if user exists
@@ -63,8 +77,7 @@ export async function PATCH(request: Request) {
   }
 }
 
-//DELETE POST BY ID
-//**WORKING**
+//DELETE POST BY ID **WORKING**
 export async function DELETE(request: Request) {
   try {
     const id = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));

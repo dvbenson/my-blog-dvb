@@ -55,3 +55,4 @@ export const selectPostSchema = createSelectSchema(postsTable);
 
 export type Post = InferModel<typeof postsTable>;
 export type NewPost = InferModel<typeof postsTable, "insert">;
+export type PostWithCommentCount = Post & { comment_count: number };
