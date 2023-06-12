@@ -4,20 +4,21 @@ import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Button from "./Button";
 
-const GitHubSignInButton = () => {
+interface GitButtonProps {
+  className?: string;
+  content?: string | React.ReactNode;
+}
+
+const GitHubSignInButton = ({ className, content }: GitButtonProps) => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
 
-  // setup interface for this component
-
   return (
     <Button
-      className="w-full"
+      className={className}
+      content={content}
       onClick={() => signIn("github", { callbackUrl })}
-    >
-      {/* Replace with own icons */}
-      Continue with GitHub
-    </Button>
+    />
   );
 };
 

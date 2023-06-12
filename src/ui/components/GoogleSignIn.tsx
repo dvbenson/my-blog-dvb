@@ -4,20 +4,20 @@ import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Button from "./Button";
 
-const GoogleSignInButton = () => {
+interface GoogleButtonProps {
+  className?: string;
+  content?: string | React.ReactNode;
+}
+const GoogleSignInButton = ({ className, content }: GoogleButtonProps) => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
 
-  // setup interface for this component
-
   return (
     <Button
-      className="w-full"
+      className={className}
+      content={content}
       onClick={() => signIn("google", { callbackUrl })}
-    >
-      {/* Replace with own icons */}
-      Continue with Google
-    </Button>
+    />
   );
 };
 

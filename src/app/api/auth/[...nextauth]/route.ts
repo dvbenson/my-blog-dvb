@@ -14,11 +14,10 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/signin",
   },
 };
 
 const handler = NextAuth(authOptions);
 
-// Route Handler in 13.4 onwards imports all CRUD functions as a GET or POST, so we need to export both in this instance below
 export { handler as GET, handler as POST };
