@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import Button from "./Button";
 import ProfileHeader from "./ProfileHeader";
 
@@ -14,7 +14,6 @@ const Login = () => {
           <ProfileHeader
             user={session?.user?.name ?? ""}
             image={session?.user?.image ?? ""}
-            signOut={() => signOut()}
           />
         </div>
       ) : (
