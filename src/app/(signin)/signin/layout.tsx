@@ -1,6 +1,9 @@
+"use client";
+
 import "../../../styles/globals.css";
 
 import Footer from "../../../ui/Footer";
+import Provider from "../../../ui/components/Provider";
 
 export default function RootLayout({
   children,
@@ -10,8 +13,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
-        <Footer />
+        <Provider>
+          {children}
+          <Footer />
+        </Provider>
       </body>
     </html>
   );

@@ -1,3 +1,7 @@
+"use client";
+
+import Provider from "#/src/ui/components/Provider";
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +9,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Provider>{children}</Provider>
+      </body>
     </html>
   );
 }

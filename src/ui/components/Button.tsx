@@ -4,6 +4,7 @@ interface ButtonProps {
   contentStyles?: string;
   variant?: "primary" | "secondary" | "tertiary";
   className?: string;
+  type?: "button" | "submit" | "reset";
   disabled?: boolean;
   children?: React.ReactNode;
 }
@@ -14,6 +15,7 @@ export default function Button({
   contentStyles,
   variant,
   className,
+  type,
   disabled,
 }: ButtonProps) {
   const baseClasses = "";
@@ -34,6 +36,7 @@ export default function Button({
   return (
     <>
       <button
+        type={type}
         onClick={onClick}
         className={`${baseClasses} ${variantClasses} ${className}`}
         disabled={disabled}

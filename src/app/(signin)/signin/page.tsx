@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 
 import Button from "#/src/ui/components/Button";
 import GitHubSignInButton from "#/src/ui/components/GitHubSignIn";
@@ -30,11 +30,6 @@ const formSchema = z.object({
     .max(50, "Password must be at most 50 characters long"),
 });
 
-function onSubmit(values: z.infer<typeof formSchema>) {
-  //define this onsubmit function
-  console.log(values);
-}
-
 export default function SignInPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -43,10 +38,11 @@ export default function SignInPage() {
       password: "",
     },
   });
-  //formItem takes styles
-  //formLabel takes styles
-  //formDescription takes styles
-  //formMessage takes styles
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log("values", values);
+  }
+
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center">
@@ -99,26 +95,27 @@ export default function SignInPage() {
                       </FormItem>
                     )}
                   />
-                  <div className="mt-2 flex flex-col items-center justify-center gap-2">
-                    <Button
-                      content="Sign In"
-                      className="h-8 w-full rounded-md bg-slate-400 shadow-md hover:shadow-lg"
-                    />
-                    <GoogleSignInButton
-                      className={
-                        "h-8 w-full rounded-md bg-slate-400 shadow-md hover:shadow-lg"
-                      }
-                      content={"Continue with Google"}
-                    />
-                    <GitHubSignInButton
-                      className={
-                        "h-8 w-full rounded-md bg-slate-400 shadow-md hover:shadow-lg"
-                      }
-                      content={"Continue with GitHub"}
-                    />
-                  </div>
+                  <Button
+                    type="submit"
+                    content="Sign In"
+                    className="h-8 w-full rounded-md bg-slate-400 shadow-md hover:shadow-lg"
+                  />
                 </form>
               </Form>
+              <div className="mt-2 flex flex-col items-center justify-center gap-2">
+                <GoogleSignInButton
+                  className={
+                    "h-8 w-full rounded-md bg-slate-400 shadow-md hover:shadow-lg"
+                  }
+                  content={"Continue with Google"}
+                />
+                <GitHubSignInButton
+                  className={
+                    "h-8 w-full rounded-md bg-slate-400 shadow-md hover:shadow-lg"
+                  }
+                  content={"Continue with GitHub"}
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ const GoogleSignInButton = ({ className, content }: GoogleButtonProps) => {
     <Button
       className={className}
       content={content}
-      onClick={() => signIn("google", { callbackUrl })}
+      onClick={() => signIn("google", { callbackUrl: "/" })}
     />
   );
 };

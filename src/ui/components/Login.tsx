@@ -1,23 +1,25 @@
 "use client";
+
 import { useSession, signIn, signOut } from "next-auth/react";
 import Button from "./Button";
 import ProfileHeader from "./ProfileHeader";
 
 const Login = () => {
-  //   const { data: session } = useSession();
-  const session = true;
+  const { data: session } = useSession();
+
   return (
     <>
       {session ? (
         <div>
           <ProfileHeader
-            user={"Daniel Benson"}
-            image={"https://avatars.githubusercontent.com/u/112098121?v=4"}
+            user={session?.user?.name ?? ""}
+            image={session?.user?.image ?? ""}
             signOut={() => signOut()}
           />
         </div>
       ) : (
         <Button
+          type="button"
           content={"Sign In"}
           onClick={() => signIn()}
           contentStyles="font-medium text-xl"
@@ -28,5 +30,3 @@ const Login = () => {
 };
 
 export default Login;
-// user={session.user?.name ?? ""}
-// image={session.user?.image ?? ""}

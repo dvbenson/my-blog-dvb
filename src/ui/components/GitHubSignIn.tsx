@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, SignInOptions } from "next-auth/react";
 import Button from "./Button";
 
 interface GitButtonProps {
@@ -17,7 +17,7 @@ const GitHubSignInButton = ({ className, content }: GitButtonProps) => {
     <Button
       className={className}
       content={content}
-      onClick={() => signIn("github", { callbackUrl })}
+      onClick={() => signIn("github", { callbackUrl: "/" })}
     />
   );
 };

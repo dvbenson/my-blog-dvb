@@ -28,7 +28,6 @@ export default function Navbar() {
               label="Portfolio"
               className=" font-medium hover:underline hover:decoration-blue-200 hover:decoration-4 hover:underline-offset-4 lg:text-xl"
             />
-            {/* conditional render using clsx the change from signin to signout */}
             <li className="">
               <Login />
             </li>

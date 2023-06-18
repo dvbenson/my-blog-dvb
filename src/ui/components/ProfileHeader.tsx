@@ -9,10 +9,6 @@ interface ProfileProps {
   signOut?: () => void;
 }
 
-//user's profile page?
-//drop dow menu with options to edit profile, change password, delete account?
-//possibly show comment count, upvotes, downvotes, etc.
-
 export default function ProfileHeader({ user, image, signOut }: ProfileProps) {
   return (
     <div className="flex flex-row items-center justify-center gap-2">
