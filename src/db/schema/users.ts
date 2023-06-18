@@ -9,14 +9,14 @@ import { InferModel, relations } from "drizzle-orm";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 import * as posts from "./posts";
-
-//TODO: Figure out enums later
+import * as comments from "./comments";
 
 export const usersTable = pgTable(
   "users",
   {
     id: serial("id").primaryKey(),
     name: text("name").notNull(),
+    role: text("role").notNull(),
     email: text("email").notNull(),
     password: text("password").notNull(),
     image: text("image").notNull(),
@@ -31,6 +31,7 @@ export const usersTable = pgTable(
 
 export const usersRelations = relations(usersTable, ({ many }) => ({
   posts: many(posts.postsTable),
+  comments: many(comments.commentsTable),
 }));
 
 export const insertUserSchema = createInsertSchema(usersTable, {

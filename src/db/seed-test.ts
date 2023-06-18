@@ -8,7 +8,7 @@ const newUsers: UserSchema.NewUser[] = [
   {
     name: "Buzz Lightyear",
     email: "buzz.ly@spacecommand.star",
-    // role: "admin",
+    role: "admin",
     password: "zergmustdie123",
     image:
       "https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-a07syh_9331bd0a.jpeg?region=0%2C0%2C450%2C450",
@@ -20,8 +20,10 @@ UserSchema.insertUserSchema.parse(newUsers);
 const newPosts: PostsSchema.NewPost[] = [
   {
     title: "Why the threat of Emperor Zerg is real",
-    topics: ["Space-Rangers"],
+    subject: "Space-Rangers",
+    tags: ["Zerg", "Space", "Rangers"],
     image: "https://cdn-icons-png.flaticon.com/128/4570/4570691.png",
+    author_id: 1,
   },
 ];
 
@@ -29,7 +31,8 @@ PostsSchema.insertPostSchema.parse(newPosts);
 
 const newComments: CommentsSchema.NewComment[] = [
   {
-    username: "Rex",
+    post_id: 1,
+    author_id: 1,
     body: "Hello World... RAWR!",
   },
 ];

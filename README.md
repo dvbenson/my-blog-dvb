@@ -1,4 +1,5 @@
 # My Blog
+
 ## Stack Notes
 
 - Next.js (latest: 13.4) (app dir) ++Turbo
@@ -26,4 +27,4 @@
 
 ### Unknown Packages
 
-- server-only (deleted)
+- server-only
