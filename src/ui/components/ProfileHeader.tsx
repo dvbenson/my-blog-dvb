@@ -1,15 +1,15 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Button from "./Button";
 
 interface ProfileProps {
   user: string;
   image: string;
-  signOut?: () => void;
 }
 
-export default function ProfileHeader({ user, image, signOut }: ProfileProps) {
+export default function ProfileHeader({ user, image }: ProfileProps) {
   return (
     <div className="flex flex-row items-center justify-center gap-2">
       <Image
@@ -25,7 +25,7 @@ export default function ProfileHeader({ user, image, signOut }: ProfileProps) {
           content={"Sign Out"}
           contentStyles={"font-semibold hover:underline text-gray-600"}
           className={""}
-          onClick={() => signOut}
+          onClick={() => signOut()}
         />
       </div>
     </div>
