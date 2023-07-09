@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
-import Logo from "./components/Logo";
-import NavItem from "./components/NavItem";
-import Login from "./components/Login";
+import Logo from "../Logo";
+import NavItem from "./NavItem";
+import Login from "../Login";
 
 export default function Navbar() {
   return (

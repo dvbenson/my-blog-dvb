@@ -1,8 +1,8 @@
 "use client";
 
 import { useSession, signIn } from "next-auth/react";
-import Button from "./Button";
-import ProfileHeader from "./ProfileHeader";
+import Button from "../Button";
+import CurrentUser from "./CurrentUser";
 
 const Login = () => {
   const { data: session } = useSession();
@@ -11,7 +11,7 @@ const Login = () => {
     <>
       {session ? (
         <div>
-          <ProfileHeader
+          <CurrentUser
             user={session?.user?.name ?? ""}
             image={session?.user?.image ?? ""}
           />

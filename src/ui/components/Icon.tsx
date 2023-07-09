@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 interface IconProps {
-  icon: IconDefinition;
   className?: string;
+  icon: IconProp;
 }
 
 export default function Icon({ icon, className }: IconProps) {

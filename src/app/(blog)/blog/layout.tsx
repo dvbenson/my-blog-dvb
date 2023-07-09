@@ -2,12 +2,12 @@
 
 import type { ReactNode } from "react";
 import { Metadata } from "next";
-import DefaultLayout from "../../../ui/DefaultLayout";
-import Provider from "../../../ui/components/Provider";
+import DefaultLayout from "#/src/ui/components/layouts/DefaultLayout";
+import Provider from "../../../ui/components/auth/Provider";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-// import '../node_modules/@fortawesome/fontawesome-svg-core/styles.css'
+//import "../node_modules/@fortawesome/fontawesome-svg-core/styles.css";
 config.autoAddCss = false;
 
 import "../../../styles/globals.css";

@@ -1,11 +1,9 @@
-export default async function Blog() {
+import Blog from "#/src/ui/pages/blog/Blog";
+
+export default function BlogPage() {
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center">
-        <div className="grid grid-cols-1 place-items-center">
-          <h1 className="text-center">DA BLOG</h1>
-        </div>
-      </main>
+      <Blog />
     </>
   );
 }

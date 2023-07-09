@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import Button from "./Button";
+import Button from "../Button";
 
 interface GitButtonProps {
   className?: string;

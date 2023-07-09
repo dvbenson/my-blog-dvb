@@ -2,14 +2,14 @@
 
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import Button from "./Button";
+import Button from "../Button";
 
-interface ProfileProps {
+interface CurrentUserProps {
   user: string;
   image: string;
 }
 
-export default function ProfileHeader({ user, image }: ProfileProps) {
+export default function CurrentUser({ user, image }: CurrentUserProps) {
   return (
     <div className="flex flex-row items-center justify-center gap-2">
       <Image
